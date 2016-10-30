@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<title>Grafico</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<script src="jquery.min.js"></script>
+		<script src="highcharts.js"></script>
+		<!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+		<br />
+		<div style="max-width:30%; background-color: #EEE; box-shadow:0px 0px 5px #666; padding:10px; padding-bottom:20px;">
+			<h3>Informe o Valor de N</h3>
+			<input type="text" id="n_value">
+			<button id="submit_n_value">Salvar</button>
+		</div>
+		<script>
+			var n_value = 0;
+			var size = [];
+			var graphA = [];
+			var graphB = [];
+			var graphC = [];
+			var graphD = [];
+			var graphE = [];
+			var graphF = [];
+			var graphG = [];
+			var auxF = 0;
+			var graphG = [];
+			var graphH = [];
+			var graphI = [];
+
+			$("#submit_n_value").on('click', function(){
+				value = 0;
+				n_value = 0;
+				size = [];
+				graphA = [];
+				graphB = [];
+				graphC = [];
+				graphD = [];
+				graphE = [];
+				graphF = [];
+				graphG = [];
+				auxF = 0;
+				graphG = [];
+				graphH = [];
+				graphI = [];
+
+				rule = /^\d+$/;
+				value = $("#n_value").val();
+				if(!rule.exec(value)){
+					alert("Informe Apenas Números!");
+				} else {
+					n_value = $("#n_value").val();
+
+					for(i = 0; i <= n_value; i++){
+						// grafico A
+						graphA.push( i );
+
+						// grafico B
+						graphB.push( i * i );
+
+						// grafico C
+						graphC.push( 2 * (2*i) );
+
+						// grafico D
+						graphD.push( i * Math.log10(i) );
+
+						// grafico E
+						graphE.push( Math.log10(i+1) );
+
+						// grafico F
+						// if(i == 0){
+						// 	auxF = 0;
+						// }else if(i == 1){
+						// 	auxF = i * 1;
+						// } else {
+						// 	auxF *= ((n_value - i) + 1);
+						// }
+						if(i > 1){
+							auxF = 1;
+						} else {
+							auxF = i;
+						}
+						for(c = i; c > 0; c--){
+							auxF *= c;
+						}
+						graphF.push( auxF );
+
+						// gráfico G
+						graphG.push( 1 - i );
+
+						// gráfico H
+						graphH.push( i * (i*i) );
+
+						// gráfico I
+						graphI.push( Math.log10(Math.log10(i+1)+1) );
+
+						size.push(i);
+					}
+					genGraph();
+				}
+			});
+
+			function genGraph() {
+			   $('#container').highcharts({
+			      	title: {
+			           text: 'Comparação de Gráficos',
+			            x: -20 //center
+			        },
+			        xAxis: {
+			            categories: size,
+						max: size.lenght
+			       	},
+			       	yAxis: {
+			           	title: {
+			              	text: ''
+			           	},
+			           	plotLines: [{
+			 				value: 0,
+			               	width: 1,
+			            	color: '#808080'
+			           	}]
+			        },
+			        tooltip: {
+			            valueSuffix: ''
+			        },
+			        legend: {
+			           	layout: 'vertical',
+			           	align: 'right',
+			           	verticalAlign: 'middle',
+			           	borderWidth: 0
+			        },
+			        series: [{
+			           	name: 'n - ( )',
+			           	data: graphA
+			       }, {
+			            name: 'n^2 - ( )',
+			            data: graphB
+			        }, {
+			            name: '2^n - ( )',
+			            data: graphC
+			        }, {
+			            name: 'n * logn - ( )',
+			            data: graphD
+			        }, {
+			            name: 'logn - ( )',
+			            data: graphE
+			        }, {
+			            name: 'n! - ( )',
+			            data: graphF
+			        }, {
+			            name: '1 - ( )',
+			            data: graphG
+			        }, {
+			            name: 'n^n - ( )',
+			            data: graphH
+			        }, {
+			            name: 'loglogn - ( )',
+			            data: graphI
+			        }]
+			    });
+			};
+		</script>
+	</body>
+</html>

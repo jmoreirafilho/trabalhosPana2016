@@ -1,0 +1,161 @@
+<html>
+	<head>
+		<title>Grafico</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<script src="jquery.min.js"></script>
+		<script src="highcharts.js"></script>
+
+		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+		<div id="container2" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+		<br />
+		
+		<div style="max-width:30%; background-color: #EEE; box-shadow:0px 0px 5px #666; padding:10px; padding-bottom:20px; position:fixed; right:10px; top: 10px;">
+			<div id="popup_button">
+				<button>+</button>
+			</div>
+			<div id="content">
+				<h3>Informe o Valor de N</h3>
+				<input type="text" id="n_value">
+				<button id="submit_n_value">Salvar</button>
+			</div>
+		</div>
+
+		<script>
+			$("#popup_button button").on('click', function(){
+				$("#content").toggle();
+			});
+
+
+			var n_value = 0;
+			var size = [];
+			var graphN2 = [];
+			var graphN2Time = [];
+
+			$("#submit_n_value").on('click', function(){
+				value = 0;
+				n_value = 0;
+				size = [];
+				graphN2 = [];
+
+				rule = /^\d+$/;
+				value = $("#n_value").val();
+				if(!rule.exec(value)){
+					alert("Informe Apenas Números!");
+				} else {
+					n_value = $("#n_value").val();
+
+					for(i = 0; i <= n_value; i++){
+
+						// grafico N2
+						graphN2.push( i * i );
+
+
+						// #Cria Vetor de tamanho i e preenche
+						var vet = [];
+						for(c = i; c > 0; c--){
+							vet.push(((c*4)+2));
+						}
+
+						var dOld = window.performance.now();
+						do{
+							swapped = false;
+							for(c = 0; c < vet.length; c++){
+								if(vet[c] > vet[c+1]){
+									aux = vet[c];
+									vet[c] = vet[c+1];
+									vet[c+1] = aux;
+									swapped = true;
+								}
+							}
+						} while (swapped);
+
+						var dNew = window.performance.now();
+
+						// grafico N2Time
+						graphN2Time.push(dNew - dOld);
+
+						size.push(i);
+					}
+					genGraphN2();
+					genGraphN2Time();
+				}
+			});
+
+			function genGraphN2() {
+			   $('#container').highcharts({
+			      	title: {
+			           text: 'N²',
+			            x: -20 //center
+			        },
+			        xAxis: {
+			            categories: size,
+						max: size.length - 1
+			       	},
+			       	yAxis: {
+			           	title: {
+			              	text: ''
+			           	},
+			           	plotLines: [{
+			 				value: 0,
+			               	width: 1,
+			            	color: '#808080'
+			           	}]
+			        },
+			        tooltip: {
+			            valueSuffix: ''
+			        },
+			        legend: {
+			           	layout: 'vertical',
+			           	align: 'right',
+			           	verticalAlign: 'middle',
+			           	borderWidth: 0
+			        },
+			        series: [{
+			            name: 'n^2 - ( )',
+			            data: graphN2
+			        }]
+			    });
+			};
+
+			function genGraphN2Time() {
+			   $('#container2').highcharts({
+			      	title: {
+			           text: 'Comparação de Gráficos',
+			            x: -20 //center
+			        },
+			        xAxis: {
+			            categories: size,
+						max: size.length
+			       	},
+			       	yAxis: {
+			           	title: {
+			              	text: ''
+			           	},
+			           	plotLines: [{
+			 				value: 0,
+			               	width: 1,
+			            	color: '#808080'
+			           	}]
+			        },
+			        tooltip: {
+			            valueSuffix: ''
+			        },
+			        legend: {
+			           	layout: 'vertical',
+			           	align: 'right',
+			           	verticalAlign: 'middle',
+			           	borderWidth: 0
+			        },
+			        series: [{
+			            name: 'n^2 - ( )',
+			            data: graphN2Time
+			        }]
+			    });
+			};
+		</script>
+	</body>
+</html>

@@ -1,0 +1,272 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Métodos de Recorrência</title>
+		<link type="text/css" rel="stylesheet" href="../bootstrap.min.css">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-5">
+					<h1>Métodos de Recorrência</h1>
+				</div>
+				<div class="col-lg-7" id="menu">
+					<a href="#soma">Método da Soma</a>
+					<a href="#substituicao">Método da Substituição</a>
+					<a href="#arvore">Método da Árvore</a>
+					<a href="#mestre">Método Mestre</a>
+				</div>
+			</div>
+
+			<hr>
+			
+			<!-- INICIO METODO DA SOMA -->
+			<div class="row">
+				<div class="col-lg-3" id="som">
+					<h2 id="soma">Método da Soma</h2>
+					<p>Tal método consiste em, a partir da recorrência original, obter uma coleção de recorrências que somadas resultam em um fórmula onde a recorrência é eliminada.</p>
+				</div>
+				<div class="col-lg-9">
+					<br />
+					<table width="100%" id="somTable">
+						<tr>
+							<td width="33%">
+								<p id="som0" class="hide">T(n) = T(n-1) + 1</p>
+								<p id="som1" class="hide">T(1) = 1</p>
+							</td>
+							<td width="33%">
+								<p id="som2" class="hide">T(n) = <s>T(n-1)</s> + 1</p>
+								<p id="som3" class="hide"><s>T(n-1)</s> = <s>T(n-2)</s> + 1</p>
+								<p id="som4" class="hide"><s>T(n-3)</s> = <s>T(n-3)</s> + 1</p>
+								<p id="som6" class="hide">[...]</p>
+								<p id="som7" class="hide">T(2) = T(1) + 1</p>
+								<p id="som8" class="hide">T(1) = 1</p>
+							</td>
+							<td width="33%">
+								<p id="som8" class="hide">T(n) = 1+1+1+[...]+1+1 = n</p>
+								<p id="som9" class="hide">T(n) &isin; O(n)</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- FIM METODO DA SOMA -->
+			
+			<br><br>
+			
+			<!-- INICIO METODO DA SUBSTITUIÇÃO -->
+			<div class="row">
+				<div class="col-lg-3" id="sub">
+					<h2 id="substituicao">Método da Substituição</h2>
+					<p>Tal método consiste em, dada uma função T definida de modo recorrente, tentar mostrar que T pertence a O(f), sendo f uma função não-recorrente.</p>
+				</div>
+				<div class="col-lg-9">
+					<br />
+					<table width="100%" id="subTable">
+						<tr>
+							<td width="33%">
+								<p id="sub0" class="hide">T(n) &isin; O(n * Log(n)) ?</p>
+								<p id="sub1" class="hide">T(n) &le; c * n * Log(n)</p>
+								<p id="sub2" class="hide">T(2) = 2 * T(2) + 2</p>
+								<p id="sub3" class="hide">T(2) = 4</p>
+							</td>
+							<td width="33%" style="padding-left:50px">
+								<p id="sub4" class="hide"><u>Para n = 1</u></p>
+								<p id="sub5" class="hide">&nbsp;T(1) &le; c * 1 * Log1</p>
+								<p id="sub6" class="hide">&nbsp;T(1) &le; 0 <small><strong>(fail)</strong></small></p>
+								<p id="sub7" class="hide"><u>Para n = 2</u></p>
+								<p id="sub8" class="hide">&nbsp;T(2) &le; c * 2 * Log2<small><strong>(ok)</strong></small></p>
+							</td>
+							<td width="33%" style="padding-left:50px">
+								<p id="sub9" class="hide"><u>H.I:</u></p>
+								<p id="sub10" class="hide">&nbsp;T(n/2) &le; c * n/2 * Log(n/2)</p>
+								<p id="sub11" class="hide"><u>P.I:</u></p>
+								<p id="sub12" class="hide">&nbsp;T(n) &le; 2 * T(n/2) + n</p>
+								<p id="sub13" class="hide">&nbsp;T(n) &le; <s>2</s> * c * n/<s>2</s> * Log(n/2) + n</p>
+								<p id="sub14" class="hide">&nbsp;T(n) &le; c * n * Log(n/2) + n</p>
+								<p id="sub15" class="hide">&nbsp;T(n) &le; c * n * (Log(n) - Log2)</p>
+								<p id="sub16" class="hide">&nbsp;T(n) &le; c * n * Log(n) - c * n + n</p>
+								<p id="sub17" class="hide">&nbsp;T(n) &le; n * Log(n) para c = 1</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- FIM METODO DA SUBSTITUIÇÃO -->
+
+			<br><br>
+
+			<!-- INICIO METODO DA ÁRVORE -->
+			<div class="row">
+				<div class="col-lg-3" id="arv">
+					<h2>Método da Árvore</h2>
+					<p>Tal método consiste em, a partir da recorrência original, obter uma coleção de recorrências que somadas resultam em uma fórmula onde a recorrência é eliminada.</p>
+				</div>
+				<div class="col-lg-9">
+					<br />
+					<table id="arvTable" width="100%">
+						<tr>
+							<td width="33%">
+								<p class="arv0 hide">T(n) = dT(n/2) + n</p>
+								<p class="arv1 hide">T(1) = 1</p>
+							</td>
+							<td width="33%" align="center">
+								<p class="arv2 hide">n</p>
+								<p class="arv3 hide">n/2&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;n/2</p>
+								<p class="arv4 hide">n/4&emsp;&emsp;&emsp;n/4&emsp;&emsp;&emsp;&emsp;n/4&emsp;&emsp;&emsp;n/4</p>
+								<p class="arv5 hide">n/8&nbsp;n/8&emsp;&emsp;n/8&nbsp;n/8&emsp;&emsp;n/8&nbsp;n/8&emsp;&emsp;n/8&nbsp;n/8</p>
+							</td>
+							<td width="13%">
+								<p class="arv2 hide">-> n</p>
+								<p class="arv3 hide">-> n</p>
+								<p class="arv4 hide">-> n</p>
+								<p class="arv5 hide">-> n</p>
+							</td>
+							<td width="20%">
+								<p class="arv6 hide"><u>logo:</u></p>
+								<p class="arv7 hide">&nbsp;n * altura</p>
+								<p class="arv8 hide">&nbsp;n * Log(n)</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- FIM METODO DA ÁRVORE -->
+
+			<br><br>
+
+			<!-- INICIO METODO MESTRE -->
+			<div class="row">
+				<div class="col-lg-3" id="mes">
+					<h2>Método Mestre</h2>
+					<p>Este tipo de recorrência é típico de aloritmos "Dividir Para Conquistar". É utilizado para resolver recorrências do tipo T(n) = aT(n/b) + f(n), onde a > 0, b > 1 e f(n) é positiva.</p>
+				</div>
+				<div class="col-lg-9">
+					<br />
+					<table width="100%" id="mesTable">
+						<tr>
+							<td width="33%">
+								<p id="mes0" class="hide">F(n) = 9 * T(n/3) + n</p>
+								<p id="mes1" class="hide">a = 9; b = 3; F(n) = n</p>
+								<p id="mes2" class="hide">n * Log<small>b</small>(a) = n * Log<small>3</small>(9) = n ^ 2-E</p>
+								<p id="mes3" class="hide"><u>caso 1:</u></p>
+								<p id="mes4" class="hide">&nbsp;T(n) &isin; O(n ^ Log<small>b</small>(a)) para E = 0, 1</p>
+								<p id="mes5" class="hide">&nbsp;T(n) &isin; O(n ^ 2)</p>
+							</td>
+							<td width="33%">
+								<p id="mes6" class="hide">T(n) = T(2n/3) + 1</p>
+								<p id="mes7" class="hide">* a = 1; b = 3/2; f(n) = 1</p>
+								<p id="mes8" class="hide"><u>caso 2:</u></p>
+								<p id="mes9" class="hide">&nbsp;T(n) &isin; O(n ^ Log<small>b</small>(a) * Log<small>2</small>(n))</p>
+								<p id="mes10" class="hide">&nbsp;T(n) &isin; O(Log<small>2</small>(n))</p>
+							</td>
+							<td width="33%">
+								<p id="mes11" class="hide">T(n) = 3 * T(n/4) + n * Log(n)</p>
+								<p id="mes12" class="hide"><u>caso 3:</u> a * f(n/b) < c * f(n)</p>
+								<p id="mes13" class="hide">&nbsp;3 * f(n/4) < c * f(n)</p>
+								<p id="mes14" class="hide">&nbsp;3 * n/4 * Log(n/4) < c * n * Log(n)</p>
+								<p id="mes15" class="hide">&nbsp;3(n)/ 4 * (Log(n) - Log(4)) < c * n * Log(n)</p>
+								<p id="mes16" class="hide">&nbsp;(3(n) * Logn(n))/4 - (3(n) * Log(4))/ 4 < c * n * Log(n)</p>
+								<p id="mes17" class="hide">&nbsp;para c = 3/4 <strong><small>(OK)</small></strong></p>
+								<p id="mes18" class="hide">T(n) &isin; O(f(n))</p>
+								<p id="mes19" class="hide">T(n) &isin; O(n * Log(n))</p>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- FIM METODO MESTRE -->
+
+			<!-- ESPAÇO VAZIO -->
+			<div class="row">
+				<br />
+				<br />
+				<br />
+			</div>
+			<!-- ESPAÇO VAZIO -->
+
+		</div>
+		<script src="../jquery.min.js"></script>
+		<script>
+			var estadoSom = 0;
+			function executaSom() {
+				setTimeout(function (){
+					$("#som"+estadoSom+".hide").removeClass("hide");
+					if(estadoSom < 10){
+						estadoSom++;
+						executaSom();
+					}
+				}, 1500);
+			}
+			$("#som").on('click', function() {
+				if(estadoSom != 0){
+					$("#somTable tr td p").addClass("hide");
+					estadoSom = 0;
+				}
+				executaSom();
+			});
+
+
+
+			var estadoSub = 0;
+			function executaSub() {
+				setTimeout(function (){
+					$("#sub"+estadoSub+".hide").removeClass("hide");
+					if(estadoSub < 18){
+						estadoSub++;
+						executaSub();
+					}
+				}, 1000);
+			}
+			$("#sub").on('click', function() {
+				if(estadoSub != 0){
+					$("#subTable tr td p").addClass("hide");
+					estadoSub = 0;
+				}
+				executaSub();
+			});
+
+
+
+			var estadoArv = 0;
+			function executaArv() {
+				setTimeout(function (){
+					$(".arv"+estadoArv+".hide").removeClass("hide");
+					if(estadoSom < 8){
+						estadoArv++;
+						executaArv();
+					}
+				}, 1500);
+			}
+			$("#arv").on('click', function() {
+				if(estadoArv != 0){
+					$("#arvTable tr td p").addClass("hide");
+					estadoArv = 0;
+				}
+				executaArv();
+			});
+
+
+
+			var estadoMes = 0;
+			function executaMes() {
+				setTimeout(function (){
+					$("#mes"+estadoMes+".hide").removeClass("hide");
+					if(estadoMes < 20){
+						estadoMes++;
+						executaMes();
+					}
+				}, 1500);
+			}
+			$("#mes").on('click', function() {
+				if(estadoMes != 0){
+					$("#mesTable tr td p").addClass("hide");
+					estadoMes = 0;
+				}
+				executaMes();
+			});
+
+		</script>
+	</body>
+	<!-- R17 -->
+</html>
